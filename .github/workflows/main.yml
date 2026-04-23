@@ -3,7 +3,7 @@ name: Next.js CI
 on:
   push:
     branches: [ main ]
-  pull request:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -11,15 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/Setup-node@v3
+        uses: actions/setup-node@v4
         with:
-            node-version: "24.x"
+          node-version: '20' # මෙතන 20 හෝ 22 දමන්න
+          cache: 'npm'       # Build එක වේගවත් කිරීමට cache භාවිතා කරන්න
 
       - name: Install dependencies
-        runs: npm ci
+        run: npm ci
 
       - name: Build project
         run: npm run build
